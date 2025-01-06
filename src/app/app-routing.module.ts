@@ -3,40 +3,19 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+    path: 'tabs',
+    loadChildren: () =>
+      import('./tabs/tabs.module').then((m) => m.TabsPageModule), // Import TabsPageModule
   },
   {
     path: '',
-    redirectTo: 'home',
-    pathMatch: 'full'
-  },
-  {
-    path: 'loader',
-    loadChildren: () => import('./pages/loader/loader.module').then( m => m.LoaderPageModule)
-  },
-  {
-    path: 'create-travel',
-    loadChildren: () => import('./pages/create-travel/create-travel.module').then( m => m.CreateTravelPageModule)
-  },
-  {
-    path: 'current-travel',
-    loadChildren: () => import('./pages/current-travel/current-travel.module').then( m => m.CurrentTravelPageModule)
-  },
-  {
-    path: 'next-travel',
-    loadChildren: () => import('./pages/next-travel/next-travel.module').then( m => m.NextTravelPageModule)
-  },
-  {
-    path: 'previous-travel',
-    loadChildren: () => import('./pages/previous-travel/previous-travel.module').then( m => m.PreviousTravelPageModule)
+    redirectTo: '/tabs',
+    pathMatch: 'full',
   },
 ];
 
 @NgModule({
-  imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
-  ],
-  exports: [RouterModule]
+  imports: [RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })],
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

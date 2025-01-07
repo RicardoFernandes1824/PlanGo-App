@@ -11,16 +11,18 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="bg-img no-border">
+<ion-content class="bg-img">
   <!-- Greeting Section -->
   <div class="greeting text-color-white">
     <h2 class="ml-3">Where do you want to go?</h2>
-    <ion-searchbar placeholder="Search for places..." showClearButton="focus"></ion-searchbar>
+    <ion-searchbar placeholder="Search for places..." showClearButton="focus" class="no-border"></ion-searchbar>
   </div>
 
   <!-- Categories Section -->
   <div class="categories text-color-white">
     <h3>Next Trip / Current Trip</h3>
-  
+    <app-card name="Beautiful Sunset" imageUrl="https://media.gq-magazine.co.uk/photos/669fd0e16d17dbe1f534d256/4:3/w_1440,h_1080,c_limit/Keanu-Reeves-is-a-modern-philosopher.jpg"
+      description="A breathtaking view of the sunset over the hills."></app-card>
+
   </div>
 </ion-content>

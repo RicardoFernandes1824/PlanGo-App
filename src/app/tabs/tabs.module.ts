@@ -11,7 +11,7 @@ import {RouterModule} from "@angular/router"
     IonicModule,
     CommonModule,
     FormsModule,
-    RouterModule,  // Add RouterModule here
+    RouterModule, 
     TabsRoutingModule,
   ],
   declarations: [TabsPage],

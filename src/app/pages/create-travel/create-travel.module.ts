@@ -1,10 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
 import { IonicModule } from '@ionic/angular';
-
 import { CreateTravelPageRoutingModule } from './create-travel-routing.module';
+import { IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle } from '@ionic/angular/standalone';
 
 import { CreateTravelPage } from './create-travel.page';
 
@@ -13,7 +12,12 @@ import { CreateTravelPage } from './create-travel.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    CreateTravelPageRoutingModule
+    CreateTravelPageRoutingModule,
+    IonCard,
+    IonCardContent,
+    IonCardHeader,
+    IonCardSubtitle,
+    IonCardTitle
   ],
   declarations: [CreateTravelPage]
 })

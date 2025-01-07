@@ -1,0 +1,80 @@
+ion-header {
+    ion-toolbar {
+        --background: url('../../../assets/images/bg-sec2header.jpg') no-repeat center center / cover;
+        --border-width: 0px;
+        border: none;
+        box-shadow: none;
+        color: #1A3E6E;
+    }
+}
+
+
+.white-icon {
+    color: #1A3E6E;
+}
+
+.no-border {
+    //teste
+    border: none;
+    box-shadow: none;
+}
+
+.greeting {
+    padding: 16px;
+
+    h2 {
+        font-size: 24px;
+        font-weight: bold;
+    }
+}
+
+.categories {
+    padding: 16px;
+
+    h3 {
+        margin-bottom: 8px;
+        font-size: 20px;
+        font-weight: semi-bold;
+    }
+
+    .category-buttons {
+        display: flex;
+        gap: 8px;
+    }
+}
+
+.ml-3 {
+    margin-left: 4%;
+}
+
+.dynamic-toolbar {
+    --height: calc(6vh);
+    min-height: calc(6vh);
+    display: flex;
+    align-items: center;
+}
+
+.bg-img {
+    --background: url('../../../assets/images/bg-sec2.jpg') no-repeat center center / cover;
+}
+
+ion-searchbar {
+    --background: #1A3E6E;
+    --color: #333333;
+    --placeholder-color: #ffff;
+    --border-color: #CCCCCC;
+    margin-bottom: 15px;
+}
+
+ion-chip {
+    --background: #1A3E6E;
+    --color: #FFFFFF;
+    --border-color: #CCCCCC;
+    --box-shadow: none;
+}
+
+ion-chip:hover {
+    --background: #1A3E6E;
+    --color: #000000;
+    --border-color: #AAAAAA;
+}

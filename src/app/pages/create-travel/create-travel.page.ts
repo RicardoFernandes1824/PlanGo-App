@@ -12,7 +12,7 @@ export class CreateTravelPage implements OnInit {
   constructor(private activatedRoute: ActivatedRoute,private http: HttpClient) {}
   
   getTravels () {
-    this.http.get('https://mobile-api-one.vercel.app/api/travels' , {
+    this.http.get<any[]>('https://mobile-api-one.vercel.app/api/travels' , {
       headers: new HttpHeaders({
         "Authorization": `Basic ${btoa("ricardo.fernandes@ipvc.pt:H3$kZn7Q")}`
       })

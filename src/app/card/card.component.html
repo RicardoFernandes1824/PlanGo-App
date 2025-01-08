@@ -1,9 +1,21 @@
-<ion-card>
-  <ion-img [src]="imageUrl" alt="{{ name }}"></ion-img>
-  <ion-card-header>
-    <ion-card-title>{{ name }}</ion-card-title>
-  </ion-card-header>
-  <ion-card-content>
-    {{ description }}
-  </ion-card-content>
+<ion-card class="custom-card">
+  
+
+  <!-- Text container -->
+  <div class="text-container">
+    <!-- Date -->
+    <div class="card-header">
+      <ion-icon name="calendar-outline"></ion-icon>
+      <span class="date">26 January 2022</span>
+    </div>
+    <!-- Title -->
+    <ion-card-header>
+      <ion-card-title>{{ description }}</ion-card-title>
+    </ion-card-header>
+    <!-- Location -->
+    <ion-card-content>
+      <ion-icon name="location-outline"></ion-icon>
+      <span class="location">Tekergat, Sunamganj</span>
+    </ion-card-content>
+  </div>
 </ion-card>

@@ -16,4 +16,6 @@ import { CardComponent } from 'src/app/card/card.component';
   ],
   declarations: [CreateTravelPage, CardComponent]
 })
-export class CreateTravelPageModule {}
+export class CreateTravelPageModule {
+  
+}

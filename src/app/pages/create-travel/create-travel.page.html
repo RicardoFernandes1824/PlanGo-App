@@ -21,8 +21,14 @@
   <!-- Categories Section -->
   <div class="categories text-color-white">
     <h3>Next Trip / Current Trip</h3>
-    <app-card name="Beautiful Sunset" imageUrl="https://media.gq-magazine.co.uk/photos/669fd0e16d17dbe1f534d256/4:3/w_1440,h_1080,c_limit/Keanu-Reeves-is-a-modern-philosopher.jpg"
-      description="A breathtaking view of the sunset over the hills."></app-card>
-
+    <ng-container *ngFor="let item of travels">
+      <h2>OLA</h2>
+      <app-card [description]="item.description">
+      </app-card>
+    </ng-container>
+    <ng-template #noTrips>
+      <p>No trips available at the moment.</p>
+    </ng-template>
   </div>
+
 </ion-content>

@@ -8,7 +8,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   styleUrls: ['./create-travel.page.scss'],
 })
 export class CreateTravelPage implements OnInit {
-  travels:any={};
+  travels:any[]=[];
   constructor(private activatedRoute: ActivatedRoute,private http: HttpClient) {}
   
   getTravels () {

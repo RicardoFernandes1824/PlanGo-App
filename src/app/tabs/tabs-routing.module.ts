@@ -8,30 +8,35 @@ export const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: 'create-travel',  // Route for create-travel page
+        path: 'create-travel',
         loadChildren: () =>
-          import('../pages/create-travel/create-travel.module').then((m) => m.CreateTravelPageModule),
+          import('../pages/1.1 - create-travel/create-travel.module').then((m) => m.CreateTravelPageModule),
       },
       {
-        path: 'current-travel',  // Route for current-travel page
+        path: 'homepage',
         loadChildren: () =>
-          import('../pages/current-travel/current-travel.module').then((m) => m.CurrentTravelPageModule),
+          import('../pages/0- HomePage/homepage.module').then((m) => m.HomepagePageModule),
       },
       {
-        path: 'next-travel',  // Route for next-travel page
+        path: 'travels',
         loadChildren: () =>
-          import('../pages/next-travel/next-travel.module').then((m) => m.NextTravelPageModule),
+          import('../pages/1.0 - Travels/travels.module').then((m) => m.TravelsPageModule),
       },
       {
-        path: '',
-        redirectTo: '/tabs/create-travel',  // Redirect to 'create-travel' tab by default
+        path: 'settings',
+        loadChildren: () =>
+          import('../pages/2 - Settings/settings.module').then((m) => m.SettingsPageModule),
+      },
+      {
+        path: 'homepage',
+        redirectTo: '/tabs/0- Homepage',  // Redirect to '1.1 - create-travel' tab by default
         pathMatch: 'full',
       },
     ],
   },
   {
     path: '',
-    redirectTo: '/tabs/create-travel',  // Redirect directly to 'create-travel' tab
+    redirectTo: '/tabs/1.1 - create-travel',  // Redirect directly to '1.1 - create-travel' tab
     pathMatch: 'full',
   },
 ];

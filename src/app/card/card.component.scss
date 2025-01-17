@@ -23,7 +23,6 @@ ion-card-title,
 ion-card-content {
   display: flex;
   align-items: center;
-  padding-left: 10px; /* Ensures all text starts at the same horizontal position */
 }
 
 .card-header ion-icon,
@@ -38,7 +37,7 @@ ion-card-content ion-icon {
 
 .date {
   font-size: 0.85rem;
-  color: #888; /* Muted for secondary information */
+  color: #888;
 }
 
 ion-card-title {
@@ -52,7 +51,7 @@ ion-card-content {
   color: #444; /* Neutral gray for tertiary text */
 }
 
-.location {
+.type {
   font-size: 0.85rem;
   color: #555; /* Muted text for location */
 }

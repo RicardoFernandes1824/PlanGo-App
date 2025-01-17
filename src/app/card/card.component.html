@@ -1,22 +1,14 @@
 <ion-card class="custom-card">
   
   <div class="text-container">
-    <!-- Date -->
-    <div class="card-header">
-      <ion-icon name="calendar-outline"></ion-icon>
-      <span class="date">26 January 2022</span>
-    </div>
     <!-- Title -->
     <ion-card-header>
       <ion-card-title>{{ description }}</ion-card-title>
     </ion-card-header>
-    <ion-card-header>
-      <ion-card-title>{{ type }}</ion-card-title>
-    </ion-card-header>
-    <!-- Location -->
+    
     <ion-card-content>
-      <ion-icon name="location-outline"></ion-icon>
-      <span class="location">Tekergat, Sunamganj</span>
+      <span class="type">Type: {{ type }}</span>
+      <!-- <span class="calendar-outline">Date {{ prop1 }}</span> -->
     </ion-card-content>
   </div>
 </ion-card>

@@ -1,0 +1,35 @@
+<ion-content class="bg-img">
+  <!-- Greeting Section -->
+  <div class="greeting text-color-white">
+    <h2 class="ml-3">Where do you want to go?</h2>
+    <ion-searchbar placeholder="Search for places..." showClearButton="focus" class="no-border"></ion-searchbar>
+  </div>
+
+  <!-- Categories Section -->
+  <div class="categories text-color-white">
+    <h3>Next Trip / Current Trip</h3>
+    <ng-container *ngFor="let item of travels">
+      <app-card [description]="item.description" [type]="item.type">
+      </app-card>
+    </ng-container>
+    <ng-template #noTrips>
+      <p>No trips available at the moment.</p>
+    </ng-template>
+  </div>
+
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button expand="block" (click)="openModal()">
+      <ion-icon color="#67B1DE" name="add"></ion-icon>
+
+    </ion-fab-button>
+  </ion-fab>
+  <p>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni illum quidem recusandae ducimus quos
+    reprehenderit. Veniam, molestias quos, dolorum consequuntur nisi deserunt omnis id illo sit cum qui. Eaque,
+    dicta.
+  </p>
+</ion-content>
+</ng-template>
+</ion-modal>
+
+</ion-content>

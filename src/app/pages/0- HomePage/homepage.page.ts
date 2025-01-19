@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from "@angular/router"
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {ModalController} from "@ionic/angular";
+import {ModalComponent} from "../../components/modal/modal.component";
 
 @Component({
-  selector: 'app-1.1 - create-travel',
+  selector: 'app-homepage',
   templateUrl: './homepage.page.html',
   styleUrls: ['./homepage.page.scss'],
 })

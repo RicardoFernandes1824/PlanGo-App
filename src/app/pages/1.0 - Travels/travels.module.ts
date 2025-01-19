@@ -2,9 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-
 import { TravelsPageRoutingModule } from './travels-routing.module';
-
 import { TravelsPage } from './travels.page';
 
 @NgModule({
@@ -12,8 +10,9 @@ import { TravelsPage } from './travels.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    TravelsPageRoutingModule
+    TravelsPageRoutingModule,
+    TravelsPage
   ],
-  declarations: [TravelsPage]
+  declarations: []
 })
 export class TravelsPageModule {}

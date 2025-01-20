@@ -9,14 +9,16 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-<ion-content class="ion-padding" >
+
+<ion-content class="ion-padding">
+  <!-- Trip Info Form -->
   <ion-item>
     <ion-input labelPlacement="stacked" label="Trip Name" [(ngModel)]="tripDescription" placeholder="Enter the trip name"></ion-input>
   </ion-item>
   <ion-item>
     <ion-select labelPlacement="stacked" label="Trip Type" [(ngModel)]="tripType" placeholder="Select the trip type">
-    <ion-select-option value="Business">Business</ion-select-option>
-    <ion-select-option value="Vacation">Vacation</ion-select-option>
+      <ion-select-option value="Business">Business</ion-select-option>
+      <ion-select-option value="Vacation">Vacation</ion-select-option>
     </ion-select>
   </ion-item>
   <ion-item>
@@ -26,7 +28,9 @@
       <ion-select-option value="Done">Done</ion-select-option>
     </ion-select>
   </ion-item>
-  <ion-item >
+
+  <!-- Start and End Dates for the Trip -->
+  <ion-item>
     <ion-label position="stacked">Start of Trip</ion-label>
     <ion-datetime-button datetime="startdatetime" ></ion-datetime-button>
     <ion-modal [keepContentsMounted]="true">
@@ -36,12 +40,62 @@
     </ion-modal>
   </ion-item>
   <ion-item>
-    <ion-label position="stacked">End of Trip</ion-label>
-    <ion-datetime-button datetime="enddatetime"  ></ion-datetime-button>
+    <ion-label position="stacked">Start of Trip</ion-label>
+    <ion-datetime-button datetime="enddatetime" ></ion-datetime-button>
     <ion-modal [keepContentsMounted]="true">
       <ng-template>
         <ion-datetime id="enddatetime" [(ngModel)]="tripEnd"></ion-datetime>
       </ng-template>
     </ion-modal>
   </ion-item>
+
+  <!-- Location Form -->
+  <ion-item>
+    <ion-input labelPlacement="stacked" label="Location Description" [(ngModel)]="locationDescription" placeholder="Enter the location description"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-select labelPlacement="stacked" label="Location Type" [(ngModel)]="locationType" placeholder="Select the location type">
+      <ion-select-option value="Hotel">Hotel</ion-select-option>
+      <ion-select-option value="Airport">Airport</ion-select-option>
+      <ion-select-option value="Tourist Spot">Tourist Spot</ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-select labelPlacement="stacked" label="Location State" [(ngModel)]="locationState" placeholder="Select the location state">
+      <ion-select-option value="Planned">Planned</ion-select-option>
+      <ion-select-option value="Visited">Visited</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <!-- Start and End Dates for the Location -->
+  <ion-item>
+    <ion-label position="stacked">Location Start</ion-label>
+    <ion-datetime-button datetime="startlocation" ></ion-datetime-button>
+    <ion-modal [keepContentsMounted]="true">
+      <ng-template>
+        <ion-datetime id="startlocation" [(ngModel)]="locationStart"></ion-datetime>
+      </ng-template>
+    </ion-modal>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked">Location End</ion-label>
+    <ion-datetime-button datetime="endlocation" ></ion-datetime-button>
+    <ion-modal [keepContentsMounted]="true">
+      <ng-template>
+        <ion-datetime id="endlocation" [(ngModel)]="locationEnd"></ion-datetime>
+      </ng-template>
+    </ion-modal>
+  </ion-item>
+
+  <ion-button expand="full" (click)="addLocation()">Add Location</ion-button>
+
+  <ion-list>
+    <ion-item *ngFor="let loc of locations">
+      <ion-label>
+        <h2>{{ loc.description }}</h2>
+        <p>{{ loc.type }} - {{ loc.state }}</p>
+        <p>{{ loc.start }} to {{ loc.end }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
 </ion-content>

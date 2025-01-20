@@ -12,6 +12,12 @@ export class CardComponent {
   @Input() endAt!: Date;
   @Output() cardClicked = new EventEmitter<string>();
 
+  isStarred = false; // Initial state for star icon (not starred)
+
+  toggleStar() {
+    this.isStarred = !this.isStarred; // Toggle the star status
+  }
+
   onCardClick(): void {
     console.log('Card clicked:', this.description);
     this.cardClicked.emit(this.description);

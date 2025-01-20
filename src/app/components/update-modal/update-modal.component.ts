@@ -1,10 +1,40 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import {FormsModule} from "@angular/forms";
+import {
+  IonButton,
+  IonButtons,
+  IonContent, IonDatetime, IonDatetimeButton,
+  IonHeader,
+  IonInput,
+  IonItem, IonLabel, IonModal, IonSelect, IonSelectOption, IonText,
+  IonTitle,
+  IonToolbar
+} from "@ionic/angular/standalone";
 
 @Component({
   selector: 'app-update-modal',
   templateUrl: './update-modal.component.html',
   styleUrls: ['./update-modal.component.scss'],
+  imports: [
+    FormsModule,
+    IonButton,
+    IonButtons,
+    IonContent,
+    IonHeader,
+    IonInput,
+    IonItem,
+    IonTitle,
+    IonToolbar,
+    IonSelectOption,
+    IonSelect,
+    IonDatetime,
+    IonDatetimeButton,
+    IonModal,
+    IonLabel,
+    IonText,
+  ],
+  standalone: true
 })
 export class UpdateModalComponent implements OnInit {
   @Input() tripId!: string; // ID of the trip being updated
@@ -14,12 +44,10 @@ export class UpdateModalComponent implements OnInit {
   @Input() startAt!: string;
   @Input() endAt!: string;
 
-  constructor(private modalCtrl: ModalController) {}
+  constructor(private modalTrip: ModalController) {}
 
   ngOnInit() {
-    // Initialization logic if needed
   }
-
   saveChanges() {
     // Package updated data into an object
     const updatedTrip = {
@@ -32,11 +60,11 @@ export class UpdateModalComponent implements OnInit {
     };
 
     // Pass data back to the parent and close the modal
-    this.modalCtrl.dismiss(updatedTrip, 'confirm');
+    this.modalTrip.dismiss(updatedTrip, 'update');
   }
 
   closeModal() {
     // Close modal without saving changes
-    this.modalCtrl.dismiss(null, 'cancel');
+    this.modalTrip.dismiss(null, 'cancel');
   }
 }

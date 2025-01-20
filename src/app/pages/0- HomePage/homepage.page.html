@@ -8,7 +8,7 @@
   <div class="categories text-color-white">
     <h3>Next Trip / Current Trip</h3>
     <ng-container *ngFor="let item of travels">
-      <app-card (click)="openModal()" [description]="item.description" [type]="item.type" [startAt]="item.startAt" [endAt]="item.endAt">
+      <app-card (click)="openTripModalComponent(item.id)" [description]="item.description" [type]="item.type" [startAt]="item.startAt" [endAt]="item.endAt">
       </app-card>
     </ng-container>
     <ng-template #noTrips>

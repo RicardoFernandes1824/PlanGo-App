@@ -11,10 +11,11 @@
 </ion-header>
 <ion-content class="ion-padding" >
   <ion-item>
-    <ion-input labelPlacement="stacked" label="Trip Name" [(ngModel)]="description" placeholder="Enter the trip name"></ion-input>
+    <ion-label position="stacked">Trip Name</ion-label>
+    <ion-input [(ngModel)]="description" placeholder="Enter trip name"></ion-input>
   </ion-item>
   <ion-item>
-    <ion-select labelPlacement="stacked" label="Trip Type" [(ngModel)]="type" placeholder="{{type}}">
+    <ion-select labelPlacement="stacked" label="Trip Type" [(ngModel)]="type" placeholder="Select the trip type">
       <ion-select-option value="business">Business</ion-select-option>
       <ion-select-option value="vacation">Vacation</ion-select-option>
     </ion-select>

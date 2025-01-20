@@ -1,57 +1,68 @@
 .custom-card {
   display: flex;
-  flex-direction: row;
-  border-radius: 15px;
-  overflow: hidden;
-  border: 2px black;
-  background-color: #ffffff; /* Clean white background */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-  padding: 15px; /* Comfortable spacing inside */
-  margin: 10px 0; /* Spacing between cards */
+  flex-direction: column;
+  align-items: stretch;
 }
 
-.text-container {
+.card-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Vertically center elements */
+  padding: 15px;
+}
+
+.middle {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  gap: 8px; /* Space between text elements */
-  flex: 1; /* Take up remaining space in the card */
-}
-
-.card-header,
-ion-card-title,
-ion-card-content {
-  display: flex;
   align-items: center;
-}
-
-.card-header ion-icon,
-ion-card-content ion-icon {
-  margin-right: 8px; /* Consistent spacing between icons and text */
-}
-
-.card-header {
-  font-size: 0.9rem;
-  color: #666; /* Subtle gray for secondary info */
-}
-
-.date {
-  font-size: 0.85rem;
-  color: #888;
-}
-
-ion-card-title {
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: #333; /* Darker text for strong readability */
-}
-
-ion-card-content {
-  font-size: 0.9rem;
-  color: #444; /* Neutral gray for tertiary text */
+  flex: 1;
+  text-align: center;
 }
 
 .type {
-  font-size: 0.85rem;
-  color: #555; /* Muted text for location */
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.dates {
+  font-size: 12px;
+  color: gray;
+}
+
+.right {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.star-icon {
+  font-size: 24px;
+  cursor: pointer;
+  transition: transform 0.3s, color 0.3s;
+}
+
+.star-filled {
+  color: yellow; /* Change color when filled */
+  transform: scale(1.5); /* Enlarge the icon when clicked */
+}
+
+ion-card-header {
+  background-color: #f5f5f5;
+  padding: 10px;
+  text-align: center;
+}
+
+ion-card-title {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: left;
+}
+
+ion-card-content {
+  padding: 10px;
+}
+
+.middle {
+  text-align: left;
 }

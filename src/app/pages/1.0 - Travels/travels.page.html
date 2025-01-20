@@ -1,23 +1,64 @@
 <ion-content class="bg-img">
   <div class="ml-2 text-color-white">
     <h2 class="ml-3">Search Your Journey</h2>
-    <ion-searchbar placeholder="Search for trips..."></ion-searchbar>
+    <ion-searchbar placeholder="Search for trips..." debounce="300"></ion-searchbar>
   </div>
 
-  <div class="categories ml-2 text-color-white">
-    <h3>Categories</h3>
-    <div class="buttons">
-      <ion-button shape="round" (click)="filterTravels('')">All</ion-button>
-      <ion-button shape="round" (click)="filterTravels('Business')">Business</ion-button>
-      <ion-button shape="round" (click)="filterTravels('Vacation')">Vacation</ion-button>
-      <ion-button shape="round" (click)="filterTravels('Done')">Done</ion-button>
+  <div class="categories2 ml-2">
+    <h3>Filter by State</h3>
+    <div class="button-container">
+      <div class="top-buttons">
+        <ion-button
+          shape="round"
+          [color]="selectedState === 'planned' ? 'primary' : 'medium'"
+          (click)="filterTravels('planned', undefined)">
+          Planned
+        </ion-button>
+        <ion-button
+          shape="round"
+          [color]="selectedState === 'ongoing' ? 'primary' : 'medium'"
+          (click)="filterTravels('ongoing', undefined)">
+          OnGoing
+        </ion-button>
+        <ion-button
+          shape="round"
+          [color]="selectedState === 'done' ? 'primary' : 'medium'"
+          (click)="filterTravels('done', undefined)">
+          Done
+        </ion-button>
+      </div>
+    </div>
+
+    <h3>Filter by Type</h3>
+    <div class="button-container">
+      <div class="bottom-buttons">
+        <ion-button
+          shape="round"
+          [color]="selectedType === 'business' ? 'primary' : 'medium'"
+          (click)="filterTravels(undefined, 'business')">
+          Business
+        </ion-button>
+        <ion-button
+          shape="round"
+          [color]="selectedType === 'vacation' ? 'primary' : 'medium'"
+          (click)="filterTravels(undefined, 'vacation')">
+          Vacation
+        </ion-button>
+      </div>
     </div>
   </div>
 
   <div class="categories text-color-white">
-    <ng-container *ngFor="let item of filteredTravels">
-      <app-card [description]="item.description" [type]="item.type" [startAt]="item.startAt" [endAt]="item.endAt">
-      </app-card>
+    <ng-container *ngIf="filteredTravels.length > 0; else noTrips">
+      <ng-container *ngFor="let item of filteredTravels">
+        <app-card
+          (click)="openTripModalComponent(item.id)"
+          [description]="item.description"
+          [type]="item.type"
+          [startAt]="item.startAt"
+          [endAt]="item.endAt">
+        </app-card>
+      </ng-container>
     </ng-container>
     <ng-template #noTrips>
       <p>No trips available at the moment.</p>

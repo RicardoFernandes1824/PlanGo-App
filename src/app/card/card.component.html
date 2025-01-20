@@ -1,17 +1,22 @@
 <ion-card class="custom-card">
-  <div class="text-container">
-    <!-- Title -->
-    <ion-card-header>
-      <ion-card-title>{{ description }}</ion-card-title>
-    </ion-card-header>
+  <ion-card-header>
+    <ion-card-title class="middle">{{ description }}</ion-card-title>
+  </ion-card-header>
 
-    <ion-card-content>
-      <div>
+  <ion-card-content>
+    <div class="card-content">
+      <div class="middle">
         <p class="type">Type: {{ type }}</p>
-        <p class="startAt">Start Trip: {{ startAt | date: 'd MMMM yyyy, H:mm' }}</p>
-        <p class="startAt">End Trip: {{ endAt | date: 'd MMMM yyyy, H:mm' }}</p>
+        <p class="dates">{{ startAt | date: 'd MMM yyyy' }} - {{ endAt | date: 'd MMM yyyy' }}</p>
+        <div class="right">
+          <ion-icon
+            name="star-outline"
+            class="star-icon"
+            [ngClass]="{'star-filled': isStarred}"
+            (click)="toggleStar()">
+          </ion-icon>
+        </div>
       </div>
-
-    </ion-card-content>
-  </div>
+    </div>
+  </ion-card-content>
 </ion-card>

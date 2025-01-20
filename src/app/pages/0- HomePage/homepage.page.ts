@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from "@angular/router"
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {Component, OnInit} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {LoadingController, ModalController, ToastController} from "@ionic/angular";
 import {ModalComponent} from "../../components/modal/modal.component";
+import {UpdateModalComponent} from "../../components/update-modal/update-modal.component";
 
 @Component({
   selector: 'app-homepage',
@@ -18,12 +18,13 @@ export class HomepagePage implements OnInit {
   tripEnd!: string;
 
   constructor(
-    private activatedRoute: ActivatedRoute,
     private http: HttpClient,
     private modalCtrl: ModalController,
+    private modalTrip: ModalController,
     private loadingCtrl: LoadingController,
     private toastController: ToastController,
-    ) {}
+  ) {
+  }
 
   async ngOnInit() {
     await this.getTravels();
@@ -48,7 +49,7 @@ export class HomepagePage implements OnInit {
       message: message,
       duration: 2000,
       color: color,
-      position: 'top', // Position of the toast ('top', 'bottom', 'middle')
+      position: 'top',
     });
     await toast.present();
   }
@@ -68,7 +69,38 @@ export class HomepagePage implements OnInit {
         console.error('Error fetching travels:', error);
       },
       complete: () => {
-        this.hideLoading(loading); // Hide the loader when the request is complete
+        this.hideLoading(loading);
+      }
+    });
+  }
+
+  async updateTravel(travel: any) {
+
+    const startDate = new Date(this.tripStart);
+    const endDate = new Date(this.tripEnd);
+
+    if (endDate < startDate) {
+      await this.presentToast('Error: End Date cannot be earlier than Start Date.', 'danger');
+      return;
+    }
+
+    await this.showLoading('Loading travels...');
+
+    this.http.put<any[]>(`https://mobile-api-one.vercel.app/api/travels/${travel.id}`, travel, {
+      headers: new HttpHeaders({
+        "Authorization": `Basic ${btoa("ricardo.fernandes@ipvc.pt:H3$kZn7Q")}`
+      }),
+    }).subscribe({
+      next: (response) => {
+        this.getTravels()
+        this.presentToast('Travel updated successfully!');
+      },
+      error: (error) => {
+        console.error('Error updating travel:', error);
+        this.presentToast('Error updating travel', 'danger');
+      },
+      complete: () => {
+        console.log('Post request completed.');
       }
     });
   }
@@ -82,8 +114,7 @@ export class HomepagePage implements OnInit {
 
     await modal.present();
 
-    const { data, role } = await modal.onWillDismiss();
-    console.log(data)
+    const {data, role} = await modal.onWillDismiss();
     if (role === 'confirm' && data) {
       this.description = data.tripDescription;
       this.type = data.tripType;
@@ -94,7 +125,44 @@ export class HomepagePage implements OnInit {
     }
   }
 
+  async openTripModalComponent(tripId: string) {
+    const selectedTrip = this.travels.find((trip) => trip.id === tripId);
+
+    if (!selectedTrip) {
+      console.error('Trip not found');
+      return;
+    }
+    const modalTrip = await this.modalTrip.create({
+      component: UpdateModalComponent,
+      cssClass: 'modal-fullScreen',
+      componentProps: {
+        tripId: selectedTrip.id,
+        description: selectedTrip.description,
+        type: selectedTrip.type,
+        state: selectedTrip.state,
+        startAt: selectedTrip.startAt,
+        endAt: selectedTrip.endAt,
+      },
+    });
+
+    await modalTrip.present();
+
+
+    const {data, role} = await modalTrip.onWillDismiss();
+
+    role === 'update' && await this.updateTravel(data)
+  }
+
   async postTravels() {
+
+    const startDate = new Date(this.tripStart);
+    const endDate = new Date(this.tripEnd);
+
+    if (endDate < startDate) {
+      this.presentToast('Error: End Date cannot be earlier than Start Date.', 'danger');
+      return;
+    }
+
     const loading = await this.showLoading('Saving travel...');
 
     const travelData = {
@@ -116,7 +184,7 @@ export class HomepagePage implements OnInit {
       },
       error: (error) => {
         console.error('Error creating travel:', error);
-        this.presentToast('Error creating travel', 'danger');  // Show a red error toast
+        this.presentToast('Error creating travel', 'danger');
       },
       complete: () => {
         console.log('Post request completed.');

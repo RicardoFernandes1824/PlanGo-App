@@ -6,8 +6,12 @@
     </ion-card-header>
 
     <ion-card-content>
-      <span class="type">Type: {{ type }}</span>
-      <!-- <span class="calendar-outline">Date {{ START AT }}</span> -->
+      <div>
+        <p class="type">Type: {{ type }}</p>
+        <p class="startAt">Start Trip: {{ startAt | date: 'd MMMM yyyy, H:mm' }}</p>
+        <p class="startAt">End Trip: {{ endAt | date: 'd MMMM yyyy, H:mm' }}</p>
+      </div>
+
     </ion-card-content>
   </div>
 </ion-card>

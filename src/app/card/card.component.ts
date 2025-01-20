@@ -8,6 +8,8 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 export class CardComponent {
   @Input() description!: string;
   @Input() type!: string;
+  @Input() startAt!: Date;
+  @Input() endAt!: Date;
   @Output() cardClicked = new EventEmitter<string>();
 
   onCardClick(): void {

@@ -1,16 +1,22 @@
-import { Component  } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
   IonButton,
   IonButtons,
-  IonContent, IonDatetime, IonDatetimeButton,
+  IonContent,
+  IonDatetime,
+  IonDatetimeButton,
   IonHeader,
   IonInput,
-  IonItem, IonLabel, IonModal, IonSelect, IonSelectOption,
+  IonItem,
+  IonLabel,
+  IonModal,
+  IonSelect,
+  IonSelectOption,
   IonTitle,
   IonToolbar,
 } from '@ionic/angular/standalone';
-import {ModalController} from "@ionic/angular";
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-modal',
@@ -33,15 +39,14 @@ import {ModalController} from "@ionic/angular";
     IonModal,
     IonLabel,
   ],
-  standalone: true
+  standalone: true,
 })
 export class ModalComponent {
-
-  tripName!: string;
-  tripType!: string;
-  tripState!: string;
-  tripStart!: string;
-  tripEnd!: string;
+  @Input() tripDescription: string = '';
+  @Input() tripType: string = '';
+  @Input() tripState: string = '';
+  @Input() tripStart: string = (new Date()).toISOString();
+  @Input() tripEnd: string = (new Date()).toISOString();
 
   constructor(private modalCtrl: ModalController) {}
 
@@ -50,6 +55,13 @@ export class ModalComponent {
   }
 
   confirm() {
-    return this.modalCtrl.dismiss(this.tripName, 'confirm');
+    const tripData = {
+      tripDescription: this.tripDescription,
+      tripType: this.tripType,
+      tripState: this.tripState,
+      tripStart: this.tripStart,
+      tripEnd: this.tripEnd,
+    };
+    return this.modalCtrl.dismiss(tripData, 'confirm');
   }
 }

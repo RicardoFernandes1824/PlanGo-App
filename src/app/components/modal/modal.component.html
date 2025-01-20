@@ -11,7 +11,7 @@
 </ion-header>
 <ion-content class="ion-padding" >
   <ion-item>
-    <ion-input labelPlacement="stacked" label="Trip Name" [(ngModel)]="tripName" placeholder="Enter the trip name"></ion-input>
+    <ion-input labelPlacement="stacked" label="Trip Name" [(ngModel)]="tripDescription" placeholder="Enter the trip name"></ion-input>
   </ion-item>
   <ion-item>
     <ion-select labelPlacement="stacked" label="Trip Type" [(ngModel)]="tripType" placeholder="Select the trip type">
@@ -28,19 +28,19 @@
   </ion-item>
   <ion-item >
     <ion-label position="stacked">Start of Trip</ion-label>
-    <ion-datetime-button datetime="startdatetime" [(ngModel)]="tripStart" ></ion-datetime-button>
+    <ion-datetime-button datetime="startdatetime" ></ion-datetime-button>
     <ion-modal [keepContentsMounted]="true">
       <ng-template>
-        <ion-datetime id="startdatetime"></ion-datetime>
+        <ion-datetime id="startdatetime" [(ngModel)]="tripStart"></ion-datetime>
       </ng-template>
     </ion-modal>
   </ion-item>
   <ion-item>
     <ion-label position="stacked">End of Trip</ion-label>
-    <ion-datetime-button datetime="enddatetime" [(ngModel)]="tripEnd" ></ion-datetime-button>
+    <ion-datetime-button datetime="enddatetime"  ></ion-datetime-button>
     <ion-modal [keepContentsMounted]="true">
       <ng-template>
-        <ion-datetime id="enddatetime"></ion-datetime>
+        <ion-datetime id="enddatetime" [(ngModel)]="tripEnd"></ion-datetime>
       </ng-template>
     </ion-modal>
   </ion-item>

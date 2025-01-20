@@ -8,11 +8,6 @@ export const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: 'create-travel',
-        loadChildren: () =>
-          import('../pages/1.1 - create-travel/create-travel.module').then((m) => m.CreateTravelPageModule),
-      },
-      {
         path: 'homepage',
         loadChildren: () =>
           import('../pages/0- HomePage/homepage.module').then((m) => m.HomepagePageModule),

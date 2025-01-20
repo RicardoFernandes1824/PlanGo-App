@@ -12,10 +12,6 @@ const routes: Routes = [
     redirectTo: '/tabs/homepage',
     pathMatch: 'full',
   },
-  {
-    path: '1.1 - create-travel',
-    loadChildren: () => import('./pages/1.1 - create-travel/create-travel.module').then(m => m.CreateTravelPageModule)
-  },
 ];
 
 @NgModule({

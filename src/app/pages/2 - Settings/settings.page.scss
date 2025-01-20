@@ -1,13 +1,3 @@
-ion-header {
-    ion-toolbar {
-        --background: url('../../../assets/images/bg-sec3header.jpg') no-repeat center center / cover;
-        --border-width: 0px;
-        border: none;
-        box-shadow: none;
-        color: #ffff;
-    }
-}
-
 .white-icon {
     color: white;
   }
@@ -75,9 +65,9 @@ ion-chip {
     --border-color: #CCCCCC;
     --box-shadow: none;
   }
-  
+
   ion-chip:hover {
-    --background: #F8F8F8; 
+    --background: #F8F8F8;
     --color: #000000;
     --border-color: #AAAAAA;
   }

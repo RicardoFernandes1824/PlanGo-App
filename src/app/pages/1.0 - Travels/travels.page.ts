@@ -19,6 +19,7 @@ export class TravelsPage implements OnInit {
   tripState!: string;
   tripStart!: string;
   tripEnd!: string;
+  filteredTravels: any[] = [];
 
   constructor(
     private http: HttpClient,
@@ -27,6 +28,14 @@ export class TravelsPage implements OnInit {
 
   async ngOnInit() {
     await this.getTravels()
+  }
+
+  filterTravels(filter: string) {
+    if (filter === '') {
+      this.filteredTravels = this.travels;
+      return
+    }
+    this.filteredTravels = this.travels.filter((travel) => travel.type === filter);
   }
 
   async getTravels() {
@@ -39,6 +48,7 @@ export class TravelsPage implements OnInit {
     }).subscribe({
       next: (response) => {
         this.travels = response;
+        this.filteredTravels = response;
       },
       error: (error) => {
         console.error('Error fetching travels:', error);

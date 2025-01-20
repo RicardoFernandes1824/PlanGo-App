@@ -48,7 +48,7 @@ export class HomepagePage implements OnInit {
       message: message,
       duration: 2000,
       color: color,
-      position: 'top',
+      position: 'top', // Position of the toast ('top', 'bottom', 'middle')
     });
     await toast.present();
   }

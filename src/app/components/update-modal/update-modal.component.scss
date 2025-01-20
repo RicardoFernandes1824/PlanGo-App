@@ -1,0 +1,63 @@
+:host {
+  display: block;
+  height: 100%;
+  background-color: #f9f9f9; // Light background for better contrast
+}
+
+ion-header {
+  --background: #ffffff; // White toolbar background
+  border-bottom: 1px solid #dcdcdc; // Subtle border for separation
+}
+
+ion-title {
+  font-weight: bold;
+  font-size: 20px;
+  color: #333; // Darker text for better readability
+}
+
+ion-content {
+  --padding-start: 16px;
+  --padding-end: 16px;
+}
+
+ion-item {
+  margin: 8px 0;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --min-height: 60px;
+}
+
+ion-label {
+  font-size: 14px;
+  color: #666; // Subtle color for labels
+}
+
+ion-input,
+ion-select,
+ion-datetime-button {
+  font-size: 16px;
+  color: #333; // Input text color
+}
+
+ion-button {
+  --border-radius: 4px;
+  font-weight: bold;
+}
+
+ion-buttons ion-button[color="medium"] {
+  color: #888; // Cancel button color
+}
+
+ion-buttons ion-button[strong="true"] {
+  background-color: #3880ff; // Confirm button primary color
+  color: #fff;
+}
+
+ion-datetime-button {
+  --background: #f0f0f0;
+  --color: #555;
+  padding: 8px;
+  border-radius: 4px;
+  text-align: left;
+}

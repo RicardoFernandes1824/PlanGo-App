@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="medium" (click)="closeModal()">Cancel</ion-button>
+    </ion-buttons>
+    <ion-title>Travel Info</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="saveChanges()" [strong]="true">Save</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding" >
+  <ion-item>
+    <ion-input labelPlacement="stacked" label="Trip Name" [(ngModel)]="description" placeholder="Enter the trip name"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-select labelPlacement="stacked" label="Trip Type" [(ngModel)]="type" placeholder="{{type}}">
+      <ion-select-option value="business">Business</ion-select-option>
+      <ion-select-option value="vacation">Vacation</ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-select labelPlacement="stacked" label="Trip State" [(ngModel)]="state" placeholder="Select the current state of the trip">
+      <ion-select-option value="planned">Planned</ion-select-option>
+      <ion-select-option value="ongoing">Ongoing</ion-select-option>
+      <ion-select-option value="done">Done</ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-item >
+    <ion-label position="stacked">Start of Trip</ion-label>
+    <ion-datetime-button datetime="startdatetime" ></ion-datetime-button>
+    <ion-modal [keepContentsMounted]="true">
+      <ng-template>
+        <ion-datetime id="startdatetime" [(ngModel)]="startAt"></ion-datetime>
+      </ng-template>
+    </ion-modal>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked">End of Trip</ion-label>
+    <ion-datetime-button datetime="enddatetime"  ></ion-datetime-button>
+    <ion-modal [keepContentsMounted]="true">
+      <ng-template>
+        <ion-datetime id="enddatetime" [(ngModel)]="endAt"></ion-datetime>
+      </ng-template>
+    </ion-modal>
+  </ion-item>
+</ion-content>

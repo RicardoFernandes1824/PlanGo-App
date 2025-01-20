@@ -1,7 +1,7 @@
 <ion-content class="bg-img">
   <div class="ml-2 text-color-white">
     <h2 class="ml-3">Search Your Journey</h2>
-    <ion-searchbar placeholder="Search for trips..." debounce="300"></ion-searchbar>
+    <ion-searchbar placeholder="Search for trips..." debounce="300" (ionInput)="handleInput($event)"></ion-searchbar>
   </div>
 
   <div class="categories2 ml-2">
@@ -10,19 +10,19 @@
       <div class="top-buttons">
         <ion-button
           shape="round"
-          [color]="selectedState === 'planned' ? 'primary' : 'medium'"
+          [color]="selectedState === 'planned' ? 'primary' : 'light'"
           (click)="filterTravels('planned', undefined)">
           Planned
         </ion-button>
         <ion-button
           shape="round"
-          [color]="selectedState === 'ongoing' ? 'primary' : 'medium'"
+          [color]="selectedState === 'ongoing' ? 'primary' : 'light'"
           (click)="filterTravels('ongoing', undefined)">
           OnGoing
         </ion-button>
         <ion-button
           shape="round"
-          [color]="selectedState === 'done' ? 'primary' : 'medium'"
+          [color]="selectedState === 'done' ? 'primary' : 'light'"
           (click)="filterTravels('done', undefined)">
           Done
         </ion-button>
@@ -34,13 +34,13 @@
       <div class="bottom-buttons">
         <ion-button
           shape="round"
-          [color]="selectedType === 'business' ? 'primary' : 'medium'"
+          [color]="selectedType === 'business' ? 'primary' : 'light'"
           (click)="filterTravels(undefined, 'business')">
           Business
         </ion-button>
         <ion-button
           shape="round"
-          [color]="selectedType === 'vacation' ? 'primary' : 'medium'"
+          [color]="selectedType === 'vacation' ? 'primary' : 'light'"
           (click)="filterTravels(undefined, 'vacation')">
           Vacation
         </ion-button>
@@ -50,15 +50,17 @@
 
   <div class="categories text-color-white">
     <ng-container *ngIf="filteredTravels.length > 0; else noTrips">
-      <ng-container *ngFor="let item of filteredTravels">
-        <app-card
-          (click)="openTripModalComponent(item.id)"
-          [description]="item.description"
-          [type]="item.type"
-          [startAt]="item.startAt"
-          [endAt]="item.endAt">
-        </app-card>
-      </ng-container>
+      <div class="card-list">
+        <ng-container *ngFor="let item of filteredTravels">
+          <app-card
+            (click)="openTripModalComponent(item.id)"
+            [description]="item.description"
+            [type]="item.type"
+            [startAt]="item.startAt"
+            [endAt]="item.endAt">
+          </app-card>
+        </ng-container>
+      </div>
     </ng-container>
     <ng-template #noTrips>
       <p>No trips available at the moment.</p>

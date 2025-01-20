@@ -36,6 +36,14 @@ export class TravelsPage implements OnInit {
     return loading;
   }
 
+  handleInput(event: Event) {
+    const target = event.target as HTMLIonSearchbarElement;
+    const query = target.value?.toLowerCase() || '';
+    this.filteredTravels = this.travels.filter((travel) =>
+      travel.description.toLowerCase().includes(query)
+    );
+  }
+
   hideLoading(loading: any) {
     loading.dismiss();
   }
@@ -62,8 +70,8 @@ export class TravelsPage implements OnInit {
       }),
     }).subscribe({
       next: (response) => {
-        this.travels = response;
-        this.filteredTravels = response;
+        this.travels = response.sort((a,b) => new Date(a.startAt).getTime() - new Date(b.startAt).getTime());
+        this.filteredTravels = response.sort((a,b) => new Date(a.startAt).getTime() - new Date(b.startAt).getTime());
       },
       error: (error) => {
         console.error('Error fetching travels:', error);
@@ -115,7 +123,7 @@ export class TravelsPage implements OnInit {
   }
 
   async updateTravel(travel: any) {
-    const loading = await this.showLoading('Loading travels...');
+    await this.showLoading('Loading travels...');
 
     this.http.put<any[]>(`https://mobile-api-one.vercel.app/api/travels/${travel.id}`, travel, {
       headers: new HttpHeaders({

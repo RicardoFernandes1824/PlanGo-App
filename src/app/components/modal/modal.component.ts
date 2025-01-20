@@ -16,7 +16,7 @@ import {
   IonTitle,
   IonToolbar,
 } from '@ionic/angular/standalone';
-import { ModalController } from '@ionic/angular';
+import {ModalController, ToastController} from '@ionic/angular';
 
 @Component({
   selector: 'app-modal',
@@ -48,13 +48,28 @@ export class ModalComponent {
   @Input() tripStart: string = (new Date()).toISOString();
   @Input() tripEnd: string = (new Date()).toISOString();
 
-  constructor(private modalCtrl: ModalController) {}
+  constructor(private modalCtrl: ModalController, private toastController: ToastController) { }
+
+
+  async presentToast(message: string, color: string = 'success') {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 2000,
+      color: color,
+      position: 'bottom',
+    });
+    await toast.present();
+  }
 
   cancel() {
     return this.modalCtrl.dismiss(null, 'cancel');
   }
 
-  confirm() {
+  async confirm() {
+    if (new Date(this.tripStart) >= new Date(this.tripEnd)) {
+      await this.presentToast('The start date can\'t be after the end date', 'danger')
+      return;
+    }
     const tripData = {
       tripDescription: this.tripDescription,
       tripType: this.tripType,

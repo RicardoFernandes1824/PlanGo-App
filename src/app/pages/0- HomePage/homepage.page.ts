@@ -63,7 +63,19 @@ export class HomepagePage implements OnInit {
       }),
     }).subscribe({
       next: (response) => {
-        this.travels = response;
+        const today = new Date();
+        const startOfToday = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+
+        const validAndSortedTravels = response
+          .filter((travel) => {
+            const startAt = new Date(travel.startAt);
+            const endAt = new Date(travel.endAt);
+
+            return startAt <= startOfToday && endAt >= startOfToday;
+          })
+          .sort((a, b) => new Date(a.startAt).getTime() - new Date(b.startAt).getTime()); // Sort by start date
+
+        this.travels = validAndSortedTravels;
       },
       error: (error) => {
         console.error('Error fetching travels:', error);
@@ -155,15 +167,7 @@ export class HomepagePage implements OnInit {
 
   async postTravels() {
 
-    const startDate = new Date(this.tripStart);
-    const endDate = new Date(this.tripEnd);
-
-    if (endDate < startDate) {
-      this.presentToast('Error: End Date cannot be earlier than Start Date.', 'danger');
-      return;
-    }
-
-    const loading = await this.showLoading('Saving travel...');
+    await this.showLoading('Saving travel...');
 
     const travelData = {
       description: this.description,

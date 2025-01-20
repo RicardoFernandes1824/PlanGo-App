@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import {Component, Input, OnInit} from '@angular/core';
+import {ModalController, ToastController} from '@ionic/angular';
 import {FormsModule} from "@angular/forms";
 import {
   IonButton,
@@ -44,11 +44,23 @@ export class UpdateModalComponent implements OnInit {
   @Input() startAt!: string;
   @Input() endAt!: string;
 
-  constructor(private modalTrip: ModalController) {}
+  constructor(private modalTrip: ModalController, private toastController: ToastController) {
+  }
 
   ngOnInit() {
   }
-  saveChanges() {
+
+  async presentToast(message: string, color: string = 'success') {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 2000,
+      color: color,
+      position: 'bottom',
+    });
+    await toast.present();
+  }
+
+  async saveChanges() {
     // Package updated data into an object
     const updatedTrip = {
       id: this.tripId,
@@ -59,8 +71,11 @@ export class UpdateModalComponent implements OnInit {
       endAt: this.endAt,
     };
 
-    // Pass data back to the parent and close the modal
-    this.modalTrip.dismiss(updatedTrip, 'update');
+    if (new Date(this.startAt) >= new Date(this.endAt)) {
+      await this.presentToast('The start date can\'t be after the end date', 'danger')
+      return;
+    }
+    await this.modalTrip.dismiss(updatedTrip, 'update');
   }
 
   closeModal() {

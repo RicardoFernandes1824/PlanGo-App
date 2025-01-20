@@ -1,4 +1,4 @@
-<ion-card class="custom-card">
+<ion-card class="custom-card ion-no-margin ion-no-padding">
   <ion-card-header>
     <ion-card-title class="middle">{{ description }}</ion-card-title>
   </ion-card-header>
@@ -13,7 +13,7 @@
             name="star-outline"
             class="star-icon"
             [ngClass]="{'star-filled': isStarred}"
-            (click)="toggleStar()">
+            (click)="toggleStar($event)">
           </ion-icon>
         </div>
       </div>

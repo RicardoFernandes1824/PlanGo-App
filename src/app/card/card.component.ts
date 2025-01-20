@@ -14,7 +14,8 @@ export class CardComponent {
 
   isStarred = false; // Initial state for star icon (not starred)
 
-  toggleStar() {
+  toggleStar(event: Event) {
+    event.stopPropagation();
     this.isStarred = !this.isStarred; // Toggle the star status
   }
 

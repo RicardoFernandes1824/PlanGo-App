@@ -47,6 +47,10 @@
     color:#FFFFFF;
 }
 
-.text-color-darkblue {
-    color:#1A3E6E;
+.card-list {
+  width: 90%;
+  display: grid;
+  grid-row-gap: 25px;
+  margin: 0 auto;
+  grid-auto-columns: auto;
 }

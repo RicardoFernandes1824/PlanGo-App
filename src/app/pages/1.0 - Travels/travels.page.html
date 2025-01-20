@@ -12,4 +12,14 @@
       <ion-button shape="round">Done</ion-button>
     </div>
   </div>
+
+  <div class="categories text-color-white">
+    <ng-container *ngFor="let item of travels">
+      <app-card [description]="item.description" [type]="item.type" [startAt]="item.startAt" [endAt]="item.endAt">
+      </app-card>
+    </ng-container>
+    <ng-template #noTrips>
+      <p>No trips available at the moment.</p>
+    </ng-template>
+  </div>
 </ion-content>

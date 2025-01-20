@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from "@angular/router"
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import {LoadingController, ModalController} from "@ionic/angular";
+import {LoadingController, ModalController, ToastController} from "@ionic/angular";
 import {ModalComponent} from "../../components/modal/modal.component";
 
 @Component({
@@ -9,7 +9,6 @@ import {ModalComponent} from "../../components/modal/modal.component";
   templateUrl: './homepage.page.html',
   styleUrls: ['./homepage.page.scss'],
 })
-
 export class HomepagePage implements OnInit {
   travels: any[] = [];
   description!: string;
@@ -22,18 +21,19 @@ export class HomepagePage implements OnInit {
     private activatedRoute: ActivatedRoute,
     private http: HttpClient,
     private modalCtrl: ModalController,
-    private loadingCtrl: LoadingController
-  ) {}
+    private loadingCtrl: LoadingController,
+    private toastController: ToastController,
+    ) {}
 
-  ngOnInit() {
-    this.getTravels();
+  async ngOnInit() {
+    await this.getTravels();
   }
 
   async showLoading(message: string) {
     const loading = await this.loadingCtrl.create({
       message,
       spinner: 'crescent',
-      duration: 5000
+      duration: 1000
     });
     await loading.present();
     return loading;
@@ -41,6 +41,16 @@ export class HomepagePage implements OnInit {
 
   hideLoading(loading: any) {
     loading.dismiss();
+  }
+
+  async presentToast(message: string, color: string = 'success') {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 2000,
+      color: color,
+      position: 'top',
+    });
+    await toast.present();
   }
 
   async getTravels() {
@@ -80,7 +90,7 @@ export class HomepagePage implements OnInit {
       this.tripState = data.tripState;
       this.tripStart = data.tripStart;
       this.tripEnd = data.tripEnd;
-      this.postTravels();
+      await this.postTravels();
     }
   }
 
@@ -102,14 +112,14 @@ export class HomepagePage implements OnInit {
       }),
     }).subscribe({
       next: (response) => {
-        console.log('Travel created successfully:', response);
-        this.getTravels(); // Refresh the travels after posting
+        this.presentToast('Travel created successfully!');
       },
       error: (error) => {
         console.error('Error creating travel:', error);
+        this.presentToast('Error creating travel', 'danger');  // Show a red error toast
       },
       complete: () => {
-        this.hideLoading(loading); // Hide the loader once the request is completed
+        console.log('Post request completed.');
       }
     });
   }

@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {CommonModule, NgForOf} from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { TravelsPageRoutingModule } from './travels-routing.module';
 import { TravelsPage } from './travels.page';
+import {SharedModule} from "../../shared/shared.module";
 
 @NgModule({
   imports: [
@@ -11,7 +12,9 @@ import { TravelsPage } from './travels.page';
     FormsModule,
     IonicModule,
     TravelsPageRoutingModule,
-    TravelsPage
+    TravelsPage,
+    NgForOf,
+    SharedModule
   ],
   declarations: []
 })

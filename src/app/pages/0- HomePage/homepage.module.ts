@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { HomepagePageRoutingModule } from './homepage-routing.module';
 import { HomepagePage } from './homepage.page';
-import { CardComponent } from 'src/app/card/card.component';
+import {SharedModule} from "../../shared/shared.module";
 
 
 @NgModule({
@@ -13,8 +13,9 @@ import { CardComponent } from 'src/app/card/card.component';
     FormsModule,
     IonicModule,
     HomepagePageRoutingModule,
+    SharedModule
   ],
-  declarations: [HomepagePage, CardComponent]
+  declarations: [HomepagePage]
 })
 export class HomepagePageModule {
 

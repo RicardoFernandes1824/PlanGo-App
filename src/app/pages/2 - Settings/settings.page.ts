@@ -6,10 +6,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./settings.page.scss'],
 })
 export class SettingsPage implements OnInit {
-
-  constructor() { }
-
+  
   ngOnInit() {
+    const prefersDark = localStorage.getItem('dark-theme') === 'true';
+    document.body.classList.toggle('dark-theme', prefersDark);
   }
 
+  toggleDarkMode(event: any) {
+    const isDarkMode = event.detail.checked;
+    document.body.classList.toggle('dark-theme', isDarkMode);
+    localStorage.setItem('dark-theme', String(isDarkMode));
+  }
 }

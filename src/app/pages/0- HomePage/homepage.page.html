@@ -1,12 +1,13 @@
 <ion-content class="bg-img">
   <!-- Greeting Section -->
   <div class="greeting text-color-white">
-    <h2 class="ml-3">Welcome to Plan&GO</h2>
+    <h2 class="ml-3">Hello, username!</h2>
+    <p class="ml-3">What are you up to?</p>
   </div>
 
   <!-- Categories Section -->
-  <div class="categories text-color-white">
-    <h3>Next Trip / Current Trip</h3>
+  <div class="categories text-color-darkBlue">
+    <h3>Your Next Adventures</h3>
     <div class='card-list'>
       <ng-container *ngFor="let item of travels">
         <app-card (click)="openTripModalComponent(item.id)" [description]="item.description" [type]="item.type"

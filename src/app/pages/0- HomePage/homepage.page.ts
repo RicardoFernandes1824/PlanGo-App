@@ -11,6 +11,7 @@ import {UpdateModalComponent} from "../../components/update-modal/update-modal.c
 })
 export class HomepagePage implements OnInit {
   travels: any[] = [];
+  locations: any[] = [];
   description!: string;
   type!: string;
   tripState!: string;
@@ -166,33 +167,90 @@ export class HomepagePage implements OnInit {
   }
 
   async postTravels() {
-
     await this.showLoading('Saving travel...');
 
+    // Prepare the travel data
     const travelData = {
       description: this.description,
       type: this.type,
       state: this.tripState,
       startAt: new Date(this.tripStart),
-      endAt: new Date(this.tripEnd)
+      endAt: new Date(this.tripEnd),
     };
 
+    // Step 1: Post the travel
     this.http.post('https://mobile-api-one.vercel.app/api/travels', travelData, {
       headers: new HttpHeaders({
         "Authorization": `Basic ${btoa("ricardo.fernandes@ipvc.pt:H3$kZn7Q")}`,
         "Content-Type": "application/json",
       }),
     }).subscribe({
-      next: (response) => {
-        this.presentToast('Travel created successfully!');
+      next: async (response: any) => {
+        const travelId = response.id; // Get the travel ID from the API response
+
+        // Step 2: Post locations if there are any
+        if (this.locations && this.locations.length > 0) {
+          for (const location of this.locations) {
+            await this.postLocation(travelId, location); // Pass travelId to link locations
+          }
+        }
+
+        this.presentToast('Travel and locations created successfully!');
+        this.getTravels(); // Refresh the list
       },
       error: (error) => {
         console.error('Error creating travel:', error);
         this.presentToast('Error creating travel', 'danger');
       },
       complete: () => {
-        console.log('Post request completed.');
+        console.log('Travel post request completed.');
       }
     });
   }
+
+  async postLocation(travelId: string, location: any) {
+    console.log('Posting location for travelId:', travelId, 'Location:', location); // Log to check if this function is called
+
+    const locationData = {
+      description: location.description,
+      type: location.type,
+      state: location.state,
+      startAt: new Date(location.startAt),
+      endAt: new Date(location.endAt),
+      travelId: travelId,
+    };
+
+    this.http.post('https://mobile-api-one.vercel.app/api/travels/locations', locationData, {
+      headers: new HttpHeaders({
+        "Authorization": `Basic ${btoa("ricardo.fernandes@ipvc.pt:H3$kZn7Q")}`,
+        "Content-Type": "application/json",
+      }),
+    }).subscribe({
+      next: (response) => {
+        console.log(`Location for travel ID ${travelId} created successfully.`);
+        // Assuming response contains the updated travel data or location, update the relevant travel
+        this.updateTravelWithNewLocation(travelId, locationData);
+      },
+      error: (error) => {
+        console.error(`Error creating location for travel ID ${travelId}:`, error);
+      },
+      complete: () => {
+        console.log(`Post request for location completed.`);
+      }
+    });
+  }
+
+  updateTravelWithNewLocation(travelId: string, newLocation: any) {
+    // Find the travel in the current travels list (you may want to handle this more robustly)
+    const travelIndex = this.travels.findIndex(travel => travel.id === travelId);
+
+    if (travelIndex !== -1) {
+      this.travels[travelIndex].locations.push(newLocation); // Or replace the locations array if necessary
+      // Optionally show a success message after the update
+      this.presentToast('Location added successfully!');
+    } else {
+      console.error('Travel not found.');
+    }
+  }
+
 }

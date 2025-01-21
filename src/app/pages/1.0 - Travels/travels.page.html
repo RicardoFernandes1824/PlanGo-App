@@ -57,7 +57,10 @@
             [description]="item.description"
             [type]="item.type"
             [startAt]="item.startAt"
-            [endAt]="item.endAt">
+            [endAt]="item.endAt"
+            [travelId]="item.id"
+            [isFav]="item.isFav"
+          (favoriteChanged)="updateFavorite($event)">
           </app-card>
         </ng-container>
       </div>

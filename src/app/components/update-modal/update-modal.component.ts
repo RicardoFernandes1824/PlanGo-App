@@ -79,7 +79,11 @@ export class UpdateModalComponent implements OnInit {
   }
 
   closeModal() {
-    // Close modal without saving changes
     this.modalTrip.dismiss(null, 'cancel');
   }
+
+  async deleteTravel() {
+      await this.modalTrip.dismiss({ tripId: this.tripId }, 'delete');
+
+}
 }

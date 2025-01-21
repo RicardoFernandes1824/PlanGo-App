@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {IonicModule, LoadingController, ModalController, ToastController} from '@ionic/angular';
+import {AlertController, IonicModule, LoadingController, ModalController, ToastController} from '@ionic/angular';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../shared/shared.module';
@@ -17,6 +17,7 @@ export class TravelsPage implements OnInit {
   filteredTravels: any[] = [];
   selectedState: string = '';
   selectedType: string = '';
+  selectedFavourite: string = '';
   appliedFilters: { label: string, type: 'state' | 'type' }[] = [];
 
   constructor(
@@ -24,6 +25,7 @@ export class TravelsPage implements OnInit {
     private modalTrip: ModalController,
     private loadingCtrl: LoadingController,
     private toastController: ToastController,
+    private alertController: AlertController
   ) {}
 
   async showLoading(message: string) {
@@ -168,6 +170,72 @@ export class TravelsPage implements OnInit {
 
     const { data, role } = await modalTrip.onWillDismiss();
 
-    role === 'update' && await this.updateTravel(data)
+    if (role === 'update' && data) {
+      await this.updateTravel(data); // Update travel
+    } else if (role === 'delete' && data.tripId) {
+      await this.confirmDelete(data.tripId); // Trigger delete confirmation
+    }
   }
+
+  async confirmDelete(tripId: string) {
+    console.log("Confirm delete for tripId:", tripId); // Debug log
+    const alert = await this.alertController.create({
+      header: 'Confirm Delete',
+      message: 'Are you sure you want to delete this travel?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+        },
+        {
+          text: 'Delete',
+          role: 'destructive',
+          handler: () => {
+            console.log("Deleting trip with ID:", tripId); // Debug log
+            this.deleteTravel(tripId); // Call the delete method
+          },
+        },
+      ],
+    });
+
+    await alert.present();
+  }
+
+  deleteTravel(tripId: string) {
+    this.http.delete(`https://mobile-api-one.vercel.app/api/travels/${tripId}`, {
+      headers: new HttpHeaders({
+        "Authorization": `Basic ${btoa("ricardo.fernandes@ipvc.pt:H3$kZn7Q")}`,
+      }),
+    }).subscribe({
+      next: () => {
+        this.presentToast('Travel deleted successfully!');
+        this.getTravels();
+      },
+      error: (error) => {
+        console.error('Error deleting travel:', error);
+        this.presentToast('Error deleting travel', 'danger');
+      },
+    });
+  }
+
+  updateFavorite(event: { travelId: string, isFav: boolean }) {
+    const body = { isFav: event.isFav };
+
+      this.http.put(`https://mobile-api-one.vercel.app/api/travels/${event.travelId}`, {
+        headers: new HttpHeaders({
+          Authorization: `Basic ${btoa('ricardo.fernandes@ipvc.pt:H3$kZn7Q')}`,
+        }),
+      }).subscribe({
+        next: (response) => {
+          console.log('Favorite status successfully updated on the server');
+          // Optionally, show a success message
+          this.presentToast('Favorite updated successfully!');
+        },
+        error: (error) => {
+          console.error('Error updating favorite status:', error);
+          // Optionally, show an error message
+          this.presentToast('Error updating favorite status', 'danger');
+        },
+      });
+    }
 }

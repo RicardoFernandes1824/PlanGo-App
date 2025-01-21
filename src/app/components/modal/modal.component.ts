@@ -11,7 +11,7 @@ import { ModalController, ToastController } from '@ionic/angular';
   imports: [
     FormsModule,
     CommonModule,
-    IonicModule, // Ensure this is included
+    IonicModule,
   ],
   standalone: true,
 })
@@ -21,7 +21,7 @@ export class ModalComponent {
   @Input() tripState: string = '';
   @Input() tripStart: string = (new Date()).toISOString();
   @Input() tripEnd: string = (new Date()).toISOString();
-  @Input() locations: any[] = []; // Array to store locations
+  @Input() locations: any[] = [];
 
   locationDescription: string = '';
   locationType: string = '';
@@ -29,25 +29,20 @@ export class ModalComponent {
   locationStart: string = (new Date()).toISOString();
   locationEnd: string = (new Date()).toISOString();
 
-  // Flag to toggle the visibility of the location form
   showLocationForm: boolean = false;
 
   constructor(private modalCtrl: ModalController, private toastController: ToastController) {}
 
-  // Function to toggle the location form visibility
   toggleLocationForm() {
     this.showLocationForm = !this.showLocationForm;
   }
 
-  // Function to add the location to the locations list
   addLocation() {
-    // Check if all fields are filled out
     if (!this.locationDescription || !this.locationType || !this.locationState || !this.locationStart || !this.locationEnd) {
       this.presentToast('Please fill in all location details', 'danger');
       return;
     }
 
-    // Convert start and end dates to Date objects for proper comparison
     const locationStartDate = new Date(this.locationStart);
     const locationEndDate = new Date(this.locationEnd);
 
@@ -64,23 +59,19 @@ export class ModalComponent {
       end: this.locationEnd,
     };
 
-    // Add the location to the locations list
     this.locations.push(location);
 
-    // Clear the input fields after adding the location
     this.locationDescription = '';
     this.locationType = '';
     this.locationState = '';
     this.locationStart = (new Date()).toISOString();
     this.locationEnd = (new Date()).toISOString();
 
-    // Optionally, hide the location form after adding
     this.showLocationForm = false;
 
     this.presentToast('Location added successfully');
   }
 
-  // Show toast message
   async presentToast(message: string, color: string = 'success') {
     const toast = await this.toastController.create({
       message: message,
@@ -91,14 +82,11 @@ export class ModalComponent {
     await toast.present();
   }
 
-  // Function to cancel and close the modal
   cancel() {
     return this.modalCtrl.dismiss(null, 'cancel');
   }
 
-  // Function to confirm and return the trip data
   async confirm() {
-    // Validate trip dates
     const tripStartDate = new Date(this.tripStart);
     const tripEndDate = new Date(this.tripEnd);
 
@@ -116,7 +104,6 @@ export class ModalComponent {
       locations: this.locations,
     };
 
-    // Dismiss modal with the trip data
     return this.modalCtrl.dismiss(tripData, 'confirm');
   }
 }

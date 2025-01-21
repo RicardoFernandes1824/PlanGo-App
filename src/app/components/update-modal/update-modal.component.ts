@@ -32,12 +32,11 @@ import {
     IonDatetimeButton,
     IonModal,
     IonLabel,
-    IonText,
   ],
   standalone: true
 })
 export class UpdateModalComponent implements OnInit {
-  @Input() tripId!: string; // ID of the trip being updated
+  @Input() tripId!: string;
   @Input() description!: string;
   @Input() type!: string;
   @Input() state!: string;
@@ -61,7 +60,6 @@ export class UpdateModalComponent implements OnInit {
   }
 
   async saveChanges() {
-    // Package updated data into an object
     const updatedTrip = {
       id: this.tripId,
       description: this.description,
@@ -80,6 +78,11 @@ export class UpdateModalComponent implements OnInit {
 
   closeModal() {
     this.modalTrip.dismiss(null, 'cancel');
+  }
+
+  async commentTravel() {
+    await this.modalTrip.dismiss({ tripId: this.tripId }, 'delete');
+
   }
 
   async deleteTravel() {

@@ -5,6 +5,12 @@
 </ion-header>
 
 <ion-content class="no-border">
+  <ion-item class="username-item">
+    <ion-avatar aria-hidden="true" slot="start">
+      <img alt="" src="assets/icon/person-circle-outline.svg" />
+    </ion-avatar>
+    <ion-label style="font-weight: bold;">Username</ion-label>
+  </ion-item>
   <div class="settings-options text-color-white">
     <ion-list>
       <ion-item>
@@ -20,4 +26,6 @@
       </ion-item>
     </ion-list>
   </div>
+
+  <ion-button color="red" shape="round" class="logout-btn">Log Out</ion-button>
 </ion-content>

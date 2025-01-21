@@ -71,3 +71,19 @@ ion-chip {
     --color: #000000;
     --border-color: #AAAAAA;
   }
+
+  ion-item {
+    --border-width: 0;
+    --border-color: transparent;
+  }
+
+  .username-item {
+    margin-top: 25px;
+  }
+
+  .logout-btn {
+    position: absolute;
+    bottom: 20px; /* Distance from the bottom of the screen */
+    left: 50%;
+    transform: translateX(-50%); /* Center the button horizontally */
+  }

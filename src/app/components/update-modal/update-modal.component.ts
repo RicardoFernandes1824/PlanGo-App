@@ -1,16 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ModalController, ToastController} from '@ionic/angular';
+import {IonicModule, ModalController, ToastController} from '@ionic/angular';
 import {FormsModule} from "@angular/forms";
-import {
-  IonButton,
-  IonButtons,
-  IonContent, IonDatetime, IonDatetimeButton,
-  IonHeader,
-  IonInput,
-  IonItem, IonLabel, IonModal, IonSelect, IonSelectOption, IonText,
-  IonTitle,
-  IonToolbar
-} from "@ionic/angular/standalone";
+import {DatePipe, NgForOf} from "@angular/common";
 
 @Component({
   selector: 'app-update-modal',
@@ -18,20 +9,9 @@ import {
   styleUrls: ['./update-modal.component.scss'],
   imports: [
     FormsModule,
-    IonButton,
-    IonButtons,
-    IonContent,
-    IonHeader,
-    IonInput,
-    IonItem,
-    IonTitle,
-    IonToolbar,
-    IonSelectOption,
-    IonSelect,
-    IonDatetime,
-    IonDatetimeButton,
-    IonModal,
-    IonLabel,
+    DatePipe,
+    IonicModule,
+    NgForOf,
   ],
   standalone: true
 })
@@ -42,6 +22,7 @@ export class UpdateModalComponent implements OnInit {
   @Input() state!: string;
   @Input() startAt!: string;
   @Input() endAt!: string;
+  @Input() locations!: any[]
 
   constructor(private modalTrip: ModalController, private toastController: ToastController) {
   }
@@ -81,12 +62,12 @@ export class UpdateModalComponent implements OnInit {
   }
 
   async commentTravel() {
-    await this.modalTrip.dismiss({ tripId: this.tripId }, 'delete');
+    await this.modalTrip.dismiss({tripId: this.tripId}, 'delete');
 
   }
 
   async deleteTravel() {
-      await this.modalTrip.dismiss({ tripId: this.tripId }, 'delete');
+    await this.modalTrip.dismiss({tripId: this.tripId}, 'delete');
 
-}
+  }
 }

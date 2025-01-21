@@ -45,5 +45,14 @@
       </ng-template>
     </ion-modal>
   </ion-item>
+  <ion-list>
+    <ion-item *ngFor="let loc of locations">
+      <ion-label>
+        <h2>{{ loc.description }}</h2>
+        <p>{{ loc.type }} - {{ loc.state }}</p>
+        <p>{{ loc.start | date:'medium' }} to {{ loc.end | date:'medium' }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
   <ion-button expand="block" color="danger" (click)="deleteTravel()">Delete Travel</ion-button>
 </ion-content>

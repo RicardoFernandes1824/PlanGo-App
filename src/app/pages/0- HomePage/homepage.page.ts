@@ -134,6 +134,7 @@ export class HomepagePage implements OnInit {
       this.tripState = data.tripState;
       this.tripStart = data.tripStart;
       this.tripEnd = data.tripEnd;
+      this.locations = data.locations;
       await this.postTravels();
     }
   }
@@ -187,7 +188,6 @@ export class HomepagePage implements OnInit {
       next: async (response: any) => {
         const travelId = response.id;
 
-        // Step 2: Post locations if there are any
         if (this.locations && this.locations.length > 0) {
           for (const location of this.locations) {
             await this.postLocation(travelId, location);
@@ -217,6 +217,8 @@ export class HomepagePage implements OnInit {
       endAt: new Date(location.endAt),
       travelId: travelId,
     };
+    console.log('location data', location)
+    console.log('travelId', travelId)
 
     this.http.post('https://mobile-api-one.vercel.app/api/travels/locations', locationData, {
       headers: new HttpHeaders({
@@ -226,6 +228,7 @@ export class HomepagePage implements OnInit {
     }).subscribe({
       next: (response) => {
         console.log(`Location for travel ID ${travelId} created successfully.`);
+        console.log('response', response)
         // Assuming response contains the updated travel data or location, update the relevant travel
         this.updateTravelWithNewLocation(travelId, locationData);
       },
@@ -237,6 +240,7 @@ export class HomepagePage implements OnInit {
       }
     });
   }
+  // Acho que não precisas disto
 
   updateTravelWithNewLocation(travelId: string, newLocation: any) {
     // Find the travel in the current travels list (you may want to handle this more robustly)

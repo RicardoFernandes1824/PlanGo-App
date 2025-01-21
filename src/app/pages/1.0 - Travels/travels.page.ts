@@ -1,9 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AlertController, IonicModule, LoadingController, ModalController, ToastController} from '@ionic/angular';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { CommonModule } from '@angular/common';
-import { SharedModule } from '../../shared/shared.module';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {CommonModule} from '@angular/common';
+import {SharedModule} from '../../shared/shared.module';
 import {UpdateModalComponent} from "../../components/update-modal/update-modal.component";
+
+type Travels = {
+  locations: Location[]
+  id: string
+  type: string
+  description: string
+  state: string
+  startAt: Date
+  endAt: Date
+  isFav: boolean,
+}
+
+type Location = {
+  id: string
+  type: string
+  description: string
+  state: string
+  startAt: Date
+  endAt: Date
+}
 
 @Component({
   selector: 'app-travels',
@@ -13,8 +33,8 @@ import {UpdateModalComponent} from "../../components/update-modal/update-modal.c
   standalone: true,
 })
 export class TravelsPage implements OnInit {
-  travels: any[] = [];
-  filteredTravels: any[] = [];
+  travels: Travels[] = [];
+  filteredTravels: Travels[] = [];
   selectedState: string = '';
   selectedType: string = '';
   selectedFavourite: string = '';
@@ -26,7 +46,8 @@ export class TravelsPage implements OnInit {
     private loadingCtrl: LoadingController,
     private toastController: ToastController,
     private alertController: AlertController
-  ) {}
+  ) {
+  }
 
   async showLoading(message: string) {
     const loading = await this.loadingCtrl.create({
@@ -72,8 +93,8 @@ export class TravelsPage implements OnInit {
       }),
     }).subscribe({
       next: (response) => {
-        this.travels = response.sort((a,b) => new Date(a.startAt).getTime() - new Date(b.startAt).getTime());
-        this.filteredTravels = response.sort((a,b) => new Date(a.startAt).getTime() - new Date(b.startAt).getTime());
+        this.travels = response.sort((a, b) => new Date(a.startAt).getTime() - new Date(b.startAt).getTime());
+        this.filteredTravels = response.sort((a, b) => new Date(a.startAt).getTime() - new Date(b.startAt).getTime());
       },
       error: (error) => {
         console.error('Error fetching Trips:', error);
@@ -115,7 +136,7 @@ export class TravelsPage implements OnInit {
       const existingFilterIndex = this.appliedFilters.findIndex(f => f.label === filterValue && f.type === filterType);
 
       if (existingFilterIndex === -1) {
-        this.appliedFilters.push({ label: filterValue, type: filterType });
+        this.appliedFilters.push({label: filterValue, type: filterType});
       } else {
         this.appliedFilters = this.appliedFilters.filter(f => f.label !== filterValue || f.type !== filterType);
       }
@@ -163,12 +184,13 @@ export class TravelsPage implements OnInit {
         state: selectedTrip.state,
         startAt: selectedTrip.startAt,
         endAt: selectedTrip.endAt,
+        locations: selectedTrip.locations,
       },
     });
 
     await modalTrip.present();
 
-    const { data, role } = await modalTrip.onWillDismiss();
+    const {data, role} = await modalTrip.onWillDismiss();
 
     if (role === 'update' && data) {
       await this.updateTravel(data); // Update travel
@@ -219,23 +241,23 @@ export class TravelsPage implements OnInit {
   }
 
   updateFavorite(event: { travelId: string, isFav: boolean }) {
-    const body = { isFav: event.isFav };
+    const body = {isFav: event.isFav};
 
-      this.http.put(`https://mobile-api-one.vercel.app/api/travels/${event.travelId}`, {
-        headers: new HttpHeaders({
-          Authorization: `Basic ${btoa('ricardo.fernandes@ipvc.pt:H3$kZn7Q')}`,
-        }),
-      }).subscribe({
-        next: (response) => {
-          console.log('Favorite status successfully updated on the server');
-          // Optionally, show a success message
-          this.presentToast('Favorite updated successfully!');
-        },
-        error: (error) => {
-          console.error('Error updating favorite status:', error);
-          // Optionally, show an error message
-          this.presentToast('Error updating favorite status', 'danger');
-        },
-      });
-    }
+    this.http.put(`https://mobile-api-one.vercel.app/api/travels/${event.travelId}`, {
+      headers: new HttpHeaders({
+        Authorization: `Basic ${btoa('ricardo.fernandes@ipvc.pt:H3$kZn7Q')}`,
+      }),
+    }).subscribe({
+      next: (response) => {
+        console.log('Favorite status successfully updated on the server');
+        // Optionally, show a success message
+        this.presentToast('Favorite updated successfully!');
+      },
+      error: (error) => {
+        console.error('Error updating favorite status:', error);
+        // Optionally, show an error message
+        this.presentToast('Error updating favorite status', 'danger');
+      },
+    });
+  }
 }

@@ -56,7 +56,7 @@ export class HomepagePage implements OnInit {
   }
 
   async getTravels() {
-    const loading = await this.showLoading('Loading travels...');
+    const loading = await this.showLoading('Loading trips...');
 
     this.http.get<any[]>('https://mobile-api-one.vercel.app/api/travels', {
       headers: new HttpHeaders({
@@ -74,12 +74,12 @@ export class HomepagePage implements OnInit {
 
             return startAt <= startOfToday && endAt >= startOfToday;
           })
-          .sort((a, b) => new Date(a.startAt).getTime() - new Date(b.startAt).getTime()); // Sort by start date
+          .sort((a, b) => new Date(a.startAt).getTime() - new Date(b.startAt).getTime());
 
         this.travels = validAndSortedTravels;
       },
       error: (error) => {
-        console.error('Error fetching travels:', error);
+        console.error('Error fetching trips:', error);
       },
       complete: () => {
         this.hideLoading(loading);
@@ -97,7 +97,7 @@ export class HomepagePage implements OnInit {
       return;
     }
 
-    await this.showLoading('Loading travels...');
+    await this.showLoading('Loading Trips...');
 
     this.http.put<any[]>(`https://mobile-api-one.vercel.app/api/travels/${travel.id}`, travel, {
       headers: new HttpHeaders({
@@ -110,7 +110,7 @@ export class HomepagePage implements OnInit {
       },
       error: (error) => {
         console.error('Error updating travel:', error);
-        this.presentToast('Error updating travel', 'danger');
+        this.presentToast('Error updating trip', 'danger');
       },
       complete: () => {
         console.log('Post request completed.');
@@ -167,9 +167,8 @@ export class HomepagePage implements OnInit {
   }
 
   async postTravels() {
-    await this.showLoading('Saving travel...');
+    await this.showLoading('Saving trip...');
 
-    // Prepare the travel data
     const travelData = {
       description: this.description,
       type: this.type,
@@ -186,17 +185,17 @@ export class HomepagePage implements OnInit {
       }),
     }).subscribe({
       next: async (response: any) => {
-        const travelId = response.id; // Get the travel ID from the API response
+        const travelId = response.id;
 
         // Step 2: Post locations if there are any
         if (this.locations && this.locations.length > 0) {
           for (const location of this.locations) {
-            await this.postLocation(travelId, location); // Pass travelId to link locations
+            await this.postLocation(travelId, location);
           }
         }
 
         this.presentToast('Travel and locations created successfully!');
-        this.getTravels(); // Refresh the list
+        this.getTravels();
       },
       error: (error) => {
         console.error('Error creating travel:', error);
@@ -209,7 +208,6 @@ export class HomepagePage implements OnInit {
   }
 
   async postLocation(travelId: string, location: any) {
-    console.log('Posting location for travelId:', travelId, 'Location:', location); // Log to check if this function is called
 
     const locationData = {
       description: location.description,
@@ -249,7 +247,7 @@ export class HomepagePage implements OnInit {
       // Optionally show a success message after the update
       this.presentToast('Location added successfully!');
     } else {
-      console.error('Travel not found.');
+      console.error('Trip not found.');
     }
   }
 

@@ -81,9 +81,22 @@ ion-chip {
     margin-top: 25px;
   }
 
-  .logout-btn {
-    position: absolute;
-    bottom: 20px; /* Distance from the bottom of the screen */
-    left: 50%;
-    transform: translateX(-50%); /* Center the button horizontally */
-  }
+.logout-btn {
+  position: absolute;
+  border: 2px solid #ff4d4d;
+  background-color: #ff1a1a;
+  color: white;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 16px;
+  padding: 5px 10px;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.logout-btn:active {
+  background-color: #cc0000;
+  transform: translateX(-50%) scale(0.98);
+}

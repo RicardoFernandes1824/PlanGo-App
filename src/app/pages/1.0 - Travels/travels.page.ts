@@ -65,7 +65,7 @@ export class TravelsPage implements OnInit {
   }
 
   async getTravels() {
-    const loading = await this.showLoading('Loading travels...');
+    const loading = await this.showLoading('Loading Trips...');
     this.http.get<any[]>('https://mobile-api-one.vercel.app/api/travels', {
       headers: new HttpHeaders({
         Authorization: `Basic ${btoa('ricardo.fernandes@ipvc.pt:H3$kZn7Q')}`,
@@ -76,7 +76,7 @@ export class TravelsPage implements OnInit {
         this.filteredTravels = response.sort((a,b) => new Date(a.startAt).getTime() - new Date(b.startAt).getTime());
       },
       error: (error) => {
-        console.error('Error fetching travels:', error);
+        console.error('Error fetching Trips:', error);
       },
       complete: () => {
         this.hideLoading(loading);
@@ -125,7 +125,7 @@ export class TravelsPage implements OnInit {
   }
 
   async updateTravel(travel: any) {
-    await this.showLoading('Loading travels...');
+    await this.showLoading('Loading Trip...');
 
     this.http.put<any[]>(`https://mobile-api-one.vercel.app/api/travels/${travel.id}`, travel, {
       headers: new HttpHeaders({
@@ -134,7 +134,7 @@ export class TravelsPage implements OnInit {
     }).subscribe({
       next: (response) => {
         this.getTravels()
-        this.presentToast('Travel updated successfully!');
+        this.presentToast('Trip updated successfully!');
       },
       error: (error) => {
         console.error('Error updating travel:', error);
@@ -181,7 +181,7 @@ export class TravelsPage implements OnInit {
     console.log("Confirm delete for tripId:", tripId); // Debug log
     const alert = await this.alertController.create({
       header: 'Confirm Delete',
-      message: 'Are you sure you want to delete this travel?',
+      message: 'Are you sure you want to delete this Trip?',
       buttons: [
         {
           text: 'Cancel',
@@ -208,7 +208,7 @@ export class TravelsPage implements OnInit {
       }),
     }).subscribe({
       next: () => {
-        this.presentToast('Travel deleted successfully!');
+        this.presentToast('Trip deleted successfully!');
         this.getTravels();
       },
       error: (error) => {
